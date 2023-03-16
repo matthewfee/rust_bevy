@@ -3,10 +3,19 @@ use bevy::prelude::*;
 
 fn main() {
     App::new()
-        .add_startup_system(setup)
-        .add_system(print_names)
-        .add_system(print_job)
+        .add_plugins(DefaultPlugins)
+        .add_plugin(PeoplePlugin)
         .run();
+}
+
+pub struct PeoplePlugin;
+
+impl Plugin for PeoplePlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_startup_system(setup)
+            .add_system(print_names)
+            .add_system(print_job);
+    }
 }
 
 pub fn setup(mut commands: Commands) {
